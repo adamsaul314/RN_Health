@@ -31,29 +31,56 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 
   /* Can now read or write to HealthKit */
 
-  const options = {
-    startDate: new Date(2020, 1, 1).toISOString(),
-  };
+  // const options = {
+  //   startDate: new Date(2022, 1, 1).toISOString(),
+  //   // startDate: new Date(2020, 1, 1).toISOString(),
+  // };
 
-  AppleHealthKit.getHeartRateSamples(
-    options,
-    (callbackError: string, results: HealthValue[]) => {
-      /* Samples are now collected from HealthKit */
-    },
-  );
+  // AppleHealthKit.getHeartRateSamples(
+  //   options,
+  //   (callbackError: string, results: HealthValue[]) => {
+  //     /* Samples are now collected from HealthKit */
+  //   },
+  // );
 });
 
 export default function App() {
-  const [authStatus, setAuthStatus] = useState<any>({});
+  // const [authStatus, setAuthStatus] = useState<any>({});
 
-  const handlePressGetAuthStatus = () => {
-    AppleHealthKit.getAuthStatus(permissions, (err, result) => {
-      if (err) {
-        console.error(err);
-      }
-      setAuthStatus(result);
-    });
+  // const handlePressGetAuthStatus = () => {
+  //   AppleHealthKit.getAuthStatus(permissions, (err, result) => {
+  //     if (err) {
+  //       console.error(err);
+  //     }
+  //     setAuthStatus(result);
+  //   });
+  // };
+
+  const options = {
+    startDate: new Date(2020, 1, 1).toISOString(),
   };
+  
+  // AppleHealthKit.getHeartRateSamples(
+  //   options,
+  //   (callbackError: string, results: HealthValue[]) => {
+  //     /* Samples are now collected from HealthKit */
+  //   },
+  // );
+  const [calories, setCalories] = useState<any>({})
+  
+  const handlePressGetActiveEnergyBurned = () => {
+    AppleHealthKit.getActiveEnergyBurned(
+      options,
+      (err: Object, results: HealthValue[]) => {
+        if (err) {
+          return
+        }
+        // console.log('calories')
+        setCalories(results)
+      },
+    )
+  }
+
 
   return (
     <>
@@ -67,11 +94,13 @@ export default function App() {
               <Text style={styles.sectionTitle}>
                 React Native Health Example
               </Text>
-              <Text onPress={handlePressGetAuthStatus}>
-                Press me to get Auth Status
+              <Text onPress={handlePressGetActiveEnergyBurned}>
+                Press me to get Calories Burned
               </Text>
               <Text style={styles.sectionDescription}>
-                {JSON.stringify(authStatus)}
+                {JSON.stringify(calories)}
+                {/* {calories == undefined ? <></> : calories} */}
+
               </Text>
             </View>
           </View>
