@@ -17,8 +17,8 @@ import AppleHealthKit, {
 /* Permission options */
 const permissions = {
   permissions: {
-    read: [AppleHealthKit.Constants.Permissions.HeartRate],
-    write: [AppleHealthKit.Constants.Permissions.Steps],
+    read: [AppleHealthKit.Constants.Permissions.ActiveEnergyBurned],
+    write: [AppleHealthKit.Constants.Permissions.ActiveEnergyBurned],
   },
 } as HealthKitPermissions;
 
@@ -71,7 +71,7 @@ export default function App() {
                 Press me to get Auth Status
               </Text>
               <Text style={styles.sectionDescription}>
-                {JSON.stringify(authStatus, null, 2)}
+                {JSON.stringify(authStatus)}
               </Text>
             </View>
           </View>
